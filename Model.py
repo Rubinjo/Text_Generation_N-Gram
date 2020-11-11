@@ -15,7 +15,7 @@ def nltk_tokenizer(text):
     Tokenize the provided text with the imported TweetTokenizer
 
     Parameters:
-    text (string): string of words
+    text (string): String of words
 
     Returns:
     A tokenized text
@@ -25,6 +25,15 @@ def nltk_tokenizer(text):
 
 
 def decontracted(phrase):
+    """
+    Decontract uncontracted words out of a text.
+
+    Parameters:
+    phrase (string): String of words.
+
+    Returns:
+    A decontracted text.
+    """
     phrase = re.sub(r"\'m", " am", phrase)
     phrase = re.sub(r"\'ve", " have", phrase)
     phrase = re.sub(r"n\'t", " not", phrase)
@@ -37,31 +46,50 @@ def decontracted(phrase):
 
 def get_frequencies(ngrams):
     """
-    Counts the times a word occurs
+    Counts the times a word occurs.
 
     Parameters:
-    ngrams (list):  A list of ngrams
+    ngrams (list):  A list of ngrams.
 
     Returns:
-    A dictionary with the ngram as key and its count as value
+    A dictionary with the ngram as key and its count as value.
     """
     ngram_frequencies = {}
     for i in ngrams:
         if (i in ngram_frequencies):
-            # add +1 to word/ngram count
+            # Add +1 to word/ngram count
             ngram_frequencies[i] += 1
         else:
-            # add word/ngram to dic with value 1
+            # Add word/ngram to dic with value 1
             ngram_frequencies[i] = 1
 
     return ngram_frequencies
 
 
 def sortngram(ngram):
+    """
+    Sort the ngram on their values.
+
+    Parameters:
+    ngrams (dictionary):  A dictionary of a ngram.
+
+    Returns:
+    A sorted ngram dictionary.
+    """
     return sorted(ngram.items(), key=lambda x: x[1], reverse=True)
 
 
 def probabilities(num, freq):
+    """
+    Calculate the ngram probabilities.
+
+    Parameters:
+    num (int): Number n of ngram.
+    freq (dictionary): Dictionary that holds the ngram combined with the number of occurrences.
+
+    Returns:
+    A dictionary of the ngram combined with the probability of it occurring.
+    """
     probs = {}
     for key in freq:
         if (num == 1):
@@ -102,10 +130,10 @@ def LoadData(books):
         for line in text:
             phrase = decontracted(line)
             splitline = re.split(
-                r"(?<!\..[.?!])(?<!mr[.?!])(?<!mrs[.?!])(?<!\s.[.?!])(?<=[.?!])\s+", phrase.casefold().strip())
+                r"(?<!\..[.?!])(?<!mr[.?!])(?<!mrs[.?!])(?<!\s.[.?!])(?<=[.?!])\s+", phrase.casefold().strip())  # Split into sentences
             for part in splitline:
                 if part != "":
-                    tokenized_text = nltk_tokenizer(part)
+                    tokenized_text = nltk_tokenizer(part)  # Split into words
                     tokenized_text.insert(0, "<S>")
                     tokenized_text.append("<E>")
                     sentence.append(tokenized_text)
@@ -120,7 +148,7 @@ def createModel(data, n):
 
     Parameters:
     data (dataframe):  A dataframe containing tokenized text.
-    n (int): number n of ngram.
+    n (int): Number n of ngram.
 
     Returns:
     A dictionary with the ngram as key and its count as value.
@@ -136,7 +164,8 @@ def generateSentence(n, sen):
     Generate a sentence based on the given ngram.
 
     Parameters:
-    n (int): number n of ngram.
+    n (int): Number n of ngram.
+    sen (int): Number of sentences.
 
     Returns:
     A sentence (string) provided by the getNewWords method.
@@ -147,38 +176,45 @@ def generateSentence(n, sen):
         ngrams.append(probabilities(i+1, createModel(data, i+1)))
     sentence = ""
     if (n == 1):
-        for i in range(round(20*random.random()) + 1):
-            roll = random.random()
+        k = 0  # Store value of currently found <E>'s
+        while k < sen:
+            roll = random.random()  # Random number between 0 and 1
             j = 0
-            for k in ngrams[n-1]:
-                j += ngrams[n-1].get(k)
+            for l in ngrams[n-1]:
+                j += ngrams[n-1].get(l)
                 if(j >= roll):
-                    sentence = sentence + " " + "".join(k)
+                    sentence = sentence + " " + "".join(l)
+                    if (l[0] == "<E>" or l[0] == "."):
+                        k += 1
+                        # Exchange <E> for . otherwise the sentence breaks will not be clear
+                        sentence = re.sub(r"<E>", ".", sentence)
                     break
     else:
         currentWord = ("<S>",)
-        k = 0  # store value of currently found <E>'s
+        k = 0  # Store value of currently found <E>'s
         return getNewWords(currentWord, n, ngrams, sen, sentence, k)
     return sentence
 
 
 def getNewWords(currentWord, n, ngrams, sen, sentence, k):
     """
-    At a word to the current sentence based on the current sentence and the given ngram untill a sentence is created.
+    At a word to the current sentence based on the current sentence and the given ngram until a sentence is created.
     Used by bigram and up.
 
     Parameters:
-    currentWord (tuple): tuple of the current wordlist needed for the ngram.
-    n (int): number n of ngram.
-    ngrams (list): A list filled with the probablities dictionaries of the selected ngram and all preceding ngrams.
-    sentence (string): string of the sentence currently produced by the methods.
+    currentWord (tuple): Tuple of the current wordlist needed for the ngram.
+    n (int): Number n of ngram.
+    ngrams (list): A list filled with the probabilities dictionaries of the selected ngram and all preceding ngrams.
+    sen (int): Number of sentences.
+    k (int): Currently found end of sentence indicators (<E>).
+    sentence (string): String of the sentence currently produced by the methods.
 
     Returns:
     A sentence (string) when <E> is selected by the method.
     """
-    roll = random.random()  # random number between 0 and 1
-    j = 0  # store value of counted probabilites
-    # Check if currentWord pocesses enough words to use with n (selected ngram)
+    roll = random.random()  # Random number between 0 and 1
+    j = 0  # Store value of counted probabilities
+    # Check if currentWord possesses enough words to use with n (selected ngram)
     if (n - 1 == len(currentWord)):
         for i in ngrams[n-1]:
             if (i[:len(currentWord)] == currentWord):
@@ -212,6 +248,16 @@ def getNewWords(currentWord, n, ngrams, sen, sentence, k):
 
 
 def cleanSentences(sentence):
+    """
+    Reformat the generated text.
+    Delete start and end indications, delete spaces that are in the wrong location and add sentence breaks.
+
+    Parameters:
+    sentence (string): Complete generated text.
+
+    Returns:
+    A sentence (string) with the complete reformatted generated text.
+    """
     sentence = re.sub(r"<S>", "", sentence)
     sentence = re.sub(r"<E>", "", sentence)
     sentence = re.sub(r"\s\.\s*", ". ", sentence)
@@ -233,14 +279,12 @@ books = ["01 - The Fellowship Of The Ring.txt",
 # Load and tokenize all provided text
 data = LoadData(books)
 
-# Generate sentence(s) accoriding to ngram
+# Generate sentence(s) according to ngram
 # GenerateSentence(ngram, numberOfSentences)
-sentence = ("<S>" + generateSentence(7, 20) + "<E>")
+sentence = ("<S>" + generateSentence(10, 10) + "<E>")
 
+# Reformat the text
 text = cleanSentences(sentence)
+
+# Print the generated text
 print(text)
-
-# np.savetxt(r"C:\Users\ruben\Desktop\NLP Project\test2.txt",
-#           trigram_prob, fmt="%s")
-
-# np.savetxt(r"C:\Users\ruben\Desktop\NLP Project\test.txt", data, fmt="%s")
