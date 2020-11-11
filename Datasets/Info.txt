@@ -6,7 +6,7 @@ what these features are can be found in the overview below.
 Overview:
 1. Lord_of_the_Rings (Contains .txt files of all three books)
     - Source: https://www.kaggle.com/ashishsinhaiitr/lord-of-the-rings-text
-    - Features: Character capitalization (Not created yet)
+    - Features: Character capitalization (Not created yet), Hand modified dataset (deleted boundaries)
 2. Harry_Potter (Contains .txt files of all seven books)
     - Source: https://archive.org/details/1HarryPotterAndTheSorcerersStone/1-Harry-Potter-and-the-Sorcerers-Stone
-    - Features:
+    - Features: Hand modified dataset (deleted page numerations)
