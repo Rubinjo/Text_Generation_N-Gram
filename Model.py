@@ -159,11 +159,12 @@ def createModel(data, n):
     return freq_ngram
 
 
-def generateSentence(n, sen):
+def generateSentence(data, n, sen):
     """
     Generate a sentence based on the given ngram.
 
     Parameters:
+    data ():
     n (int): Number n of ngram.
     sen (int): Number of sentences.
 
@@ -247,6 +248,126 @@ def getNewWords(currentWord, n, ngrams, sen, sentence, k):
                     return getNewWords(currentWord, n, ngrams, sen, sentence, k)
 
 
+def capitalizeNamesLordOfTheRings(text):
+    text = re.sub(r" adanel ", " Adanel ", text)
+    text = re.sub(r" boromir ", " Boromir ", text)
+    text = re.sub(r" lafduf ", " Lagduf ", text)
+    text = re.sub(r" tarcil ", " Tarcil ", text)
+    text = re.sub(r" annael ", " Annael ", text)
+    text = re.sub(r" angrod ", " Angrod ", text)
+    text = re.sub(r" angrim ", " Angrim ", text)
+    text = re.sub(r" angelimir ", " Angelimir ", text)
+    text = re.sub(r" angelimar ", " Angelimar ", text)
+    text = re.sub(r" gondolin ", " Gondolin ", text)
+    text = re.sub(r" penlod ", " Penlod ", text)
+    text = re.sub(r" tarannon falastur ", " Tarannon Falastur ", text)
+    text = re.sub(r" morwen steelsheen ", " Morwen Steelsheen ", text)
+    text = re.sub(r" soronto ", " Soronto ", text)
+    text = re.sub(r" finrod ", " Finrod ", text)
+    text = re.sub(r" fingolfin ", " Fingolfin ", text)
+    text = re.sub(r" finduilas ", " Finduilas ", text)
+    text = re.sub(r" findis ", " Findis ", text)
+    text = re.sub(r" findegil ", " Findegil ", text)
+    text = re.sub(r" finarfin ", " Finarfin ", text)
+    text = re.sub(r" fimbrethil ", " Fimbrethil ", text)
+    text = re.sub(r" fengel ", " Fengel ", text)
+    text = re.sub(r" fastred ", " Fastred ", text)
+    text = re.sub(r" farin ", " Farin ", text)
+    text = re.sub(r" faramir ", " Faramir ", text)
+    text = re.sub(r" falathar ", " Falathar ", text)
+    text = re.sub(r" snaga ", " Snaga ", text)
+    text = re.sub(r" seers ", " Seers ", text)
+    text = re.sub(r" siriondil ", " Siriondil ", text)
+    text = re.sub(r" shagrat ", " Shagrat ", text)
+    text = re.sub(r" scatha ", " Scatha ", text)
+    text = re.sub(r" salmar ", " Salmar ", text)
+    text = re.sub(r" sandyman ", " Sandyman ", text)
+    text = re.sub(r" salgant ", " Salgant ", text)
+    text = re.sub(r" sagroth ", " Sagroth ", text)
+    text = re.sub(r" saeros ", " Saeros ", text)
+    text = re.sub(r" saelon ", " Saelon ", text)
+    text = re.sub(r" rufus burrows ", " Rufus Burrows ", text)
+    text = re.sub(r" rudolph bolger ", " Rudolph Bolger ", text)
+    text = re.sub(r" rog ", " Rog ", text)
+    text = re.sub(r" radbug ", " Radbug ", text)
+    text = re.sub(r" proudfoot ", " Proudfoot ", text)
+    text = re.sub(r" ivriniel ", " Ivriniel ", text)
+    text = re.sub(r" ivorwen ", " Ivorwen ", text)
+    text = re.sub(r" ingwion ", " Ingwion ", text)
+    text = re.sub(r" idril ", " Idril ", text)
+    text = re.sub(r" hyarmendacil ", " Hyarmendacil ", text)
+    text = re.sub(r" huor ", " Huor ", text)
+    text = re.sub(r" huan ", " Huan ", text)
+    text = re.sub(r" erestor ", " Erestor ", text)
+    text = re.sub(r" erellont ", " Erellont ", text)
+    text = re.sub(r" erchirion ", " Erchirion ", text)
+    text = re.sub(r" eradan ", " Eradan ", text)
+    text = re.sub(r" emeldir ", " Emeldir ", text)
+    text = re.sub(r" elwing ", " Elwing ", text)
+    text = re.sub(r" elros ", " Elros ", text)
+    text = re.sub(r" elphir ", " Elphir ", text)
+    text = re.sub(r" elmo ", " Elmo ", text)
+    text = re.sub(r" elendur ", " Elendur ", text)
+    text = re.sub(r" elendil ", " Elendil ", text)
+    text = re.sub(r" elemmakil ", " Elemmakil ", text)
+    text = re.sub(r" eldarion ", " Eldarion ", text)
+    text = re.sub(r" eldacar ", " Eldacar ", text)
+    text = re.sub(r" elboron ", " Elboron ", text)
+    text = re.sub(r" egalmoth ", " Egalmoth ", text)
+    text = re.sub(r" edrahil ", " Edrahil ", text)
+    text = re.sub(r" ecthelion ", " Ecthelion ", text)
+    text = re.sub(r" ebor ", " Ebor ", text)
+    text = re.sub(r" borlas ", " Borlas ", text)
+    text = re.sub(r" pelendur ", " Pelendur ", text)
+    text = re.sub(r" pallando ", " Pallando ", text)
+    text = re.sub(r" ostoher ", " Ostoher ", text)
+    text = re.sub(r" varies ", " Varies ", text)
+    text = re.sub(r" oromendil ", " Oromendil ", text)
+    text = re.sub(r" orodreth ", " Orodreth ", text)
+    text = re.sub(r" orleg ", " Orleg ", text)
+    text = re.sub(r" ori ", " Ori ", text)
+    text = re.sub(r" Orcobal ", " Orcobal ", text)
+    text = re.sub(r" Ondoher ", " Ondoher ", text)
+    text = re.sub(r" hild ", " Hild ", text)
+    text = re.sub(r" herumor ", " Herumor ", text)
+    text = re.sub(r" herucalmo ", " Herucalmo ", text)
+    text = re.sub(r" herion ", " Herion ", text)
+    text = re.sub(r" hendor ", " Hendor ", text)
+    text = re.sub(r" hathol ", " Hathol ", text)
+    text = re.sub(r" Hareth ", " Hareth ", text)
+    text = re.sub(r" hardang ", " Hardang ", text)
+    text = re.sub(r" handir ", " Handir ", text)
+    text = re.sub(r" hallatan ", " Hallatan ", text)
+    text = re.sub(r" hallacar ", " Hallacar ", text)
+    text = re.sub(r" haleth ", " Haleth ", text)
+    text = re.sub(r" haldar ", " Haldar ", text)
+    text = re.sub(r" dwalin ", " Dwalin ", text)
+    text = re.sub(r" durin ", " Durin ", text)
+    text = re.sub(r" draugluin ", " Draugluin ", text)
+    text = re.sub(r" dori ", " Dori ", text)
+    text = re.sub(r" daeron ", " Daeron ", text)
+    text = re.sub(r" borin ", " Borin ", text)
+    text = re.sub(r" bombur ", " Bombur ", text)
+    text = re.sub(r" nellas ", " Nellas ", text)
+    text = re.sub(r" nauglath ", " Nauglath ", text)
+    text = re.sub(r" narvi ", " Narvi ", text)
+    text = re.sub(r" naugladur ", " Naugladur ", text)
+    text = re.sub(r" muzgash ", " Muzgash ", text)
+    text = re.sub(r" gwaihir ", " Gwaihir ", text)
+    text = re.sub(r" vorondil ", " Vorondil ", text)
+    text = re.sub(r" ungoliant ", " Ungoliant ", text)
+    text = re.sub(r" tulkastor ", " Tulkastor ", text)
+    text = re.sub(r" mairen ", " Mairen ", text)
+    text = re.sub(r" aragorn ", " Aragorn ", text)
+    text = re.sub(r" gandalf ", " Gandalf ", text)
+    text = re.sub(r" frodo ", " Frodo ", text)
+    text = re.sub(r" bailings ", " Bailings ", text)
+    text = re.sub(r" legolas ", " Legolas ", text)
+    text = re.sub(r" brodda ", " Brodda ", text)
+
+    return text
+
+
 def cleanSentences(sentence):
     """
     Reformat the generated text.
@@ -272,19 +393,51 @@ def cleanSentences(sentence):
     return sentence
 
 
-# Select all text files
-books = ["01 - The Fellowship Of The Ring.txt",
-         "02 - The Two Towers.txt", "03 - The Return Of The King.txt"]
+def generateText(dataset, ngram, sentences, filter):
+    """
+    Generate complete new text out of the provided dataset.
 
-# Load and tokenize all provided text
-data = LoadData(books)
+    Parameters:
+    dataset()
+    ngram (integer): Number of N-Gram to use.
+    sentences (integer): Number of sentences to generate.
+    filter (function): function call to make to reformat the text.
 
-# Generate sentence(s) according to ngram
-# GenerateSentence(ngram, numberOfSentences)
-sentence = ("<S>" + generateSentence(10, 10) + "<E>")
+    Returns:
+    The complete reformatted generated text.
+    """
+    # Load and tokenize all provided text
+    data = LoadData(dataset)
 
-# Reformat the text
-text = cleanSentences(sentence)
+    # Generate sentence(s) according to ngram
+    textNoMarkup = ("<S>" + generateSentence(data, ngram, sentences) + "<E>")
 
-# Print the generated text
-print(text)
+    # Reformat the text
+    cleanText = cleanSentences(textNoMarkup)
+
+    # Use extra filter to format text
+    newText = filter(cleanText)
+
+    # Print the generated text
+    print(newText)
+
+
+# ------------------------------------------------------------------------
+# -------------------------------User Input-------------------------------
+# ------------------------------------------------------------------------
+
+
+# Insert here your complete dataset which should be used to create your N-Gram model.
+books = ["Datasets/Lord_of_the_Rings/1-The-Fellowship-Of-The-Ring.txt",
+         "Datasets/Lord_of_the_Rings/2-The-Two-Towers.txt", "Datasets/Lord_of_the_Rings/3-The-Return-Of-The-King.txt"]
+
+# Insert here an extra function used for formatting of the generated text.
+# Provided in this file are: capitalizeNamesLordOfTheRings and capitalizeNamesHarryPotter.
+filter = capitalizeNamesLordOfTheRings
+
+# Create N-Gram model, generate text and print this new text.
+# 1st param is the dataset selected before.
+# 2nd param is an integer representing the n-gram which you want to use.
+# 3rd param is an integer representing the number of sentences you want to generate.
+# 4th param is a function used to further add formatting to a text.
+generateText(books, 6, 10, filter)
